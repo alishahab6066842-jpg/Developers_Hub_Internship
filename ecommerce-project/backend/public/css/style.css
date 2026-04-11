@@ -1,0 +1,255 @@
+/* --- 1. Base Styles --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F7F8FA;
+    color: #1C1C1C;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- 2. Header Styles --- */
+.main-header {
+    background: white;
+    border-bottom: 1px solid #DEE2E7;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px;
+    gap: 20px;
+}
+
+.logo-img {
+    height: 40px;
+}
+
+.search-bar {
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    border: 2px solid #0D6EFD;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+.btn-primary {
+    background: #0D6EFD;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.user-actions {
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+    color: #8B96A5;
+}
+
+.header-bottom {
+    border-top: 1px solid #DEE2E7;
+    padding: 12px 0;
+}
+
+.nav-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-flex nav {
+    display: flex;
+    gap: 20px;
+    font-weight: 500;
+}
+
+/* --- 3. Hero Styles --- */
+.hero-section {
+    background-color: #E5F1FF;
+    padding: 80px 0;
+    text-align: left;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: #505050;
+}
+
+/* --- 4. Footer Styles --- */
+.footer-section {
+    background: white;
+    border-top: 1px solid #DEE2E7;
+    margin-top: 50px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    padding: 40px 0;
+}
+
+.brand-text {
+    margin: 15px 0;
+    color: #505050;
+    font-size: 14px;
+}
+
+.social-links {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icon {
+    width: 30px;
+    height: 30px;
+    background: #BDC4CD;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.footer-col h4 {
+    margin-bottom: 20px;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #8B96A5;
+}
+
+.footer-bottom {
+    background: #EFF2F4;
+    padding: 20px 0;
+    border-top: 1px solid #DEE2E7;
+}
+
+.bottom-flex {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #606060;
+}
+
+/* --- 5. RESPONSIVENESS (Media Queries) --- */
+
+/* Tablet (992px and below) */
+@media (max-width: 992px) {
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile (600px and below) */
+@media (max-width: 600px) {
+    /* Stack Header elements */
+    .header-top {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-flex nav {
+        display: none; /* Hide nav links on tiny screens to keep it clean */
+    }
+
+    /* Resize Hero */
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    /* Stack Footer columns */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+
+    .bottom-flex {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+/* Product Details Specific Layout */
+.details-layout {
+    display: flex;
+    gap: 50px;
+    padding: 40px 0;
+    align-items: flex-start;
+}
+
+.details-image {
+    flex: 1;
+}
+
+.details-image img {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #DEE2E7;
+}
+
+.details-info {
+    flex: 1;
+}
+
+.price {
+    font-size: 24px;
+    color: #FA3434;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* --- RESPONSIVENESS TEST --- */
+@media (max-width: 768px) {
+    .details-layout {
+        flex-direction: column; /* Stacks image on top of text on mobile */
+    }
+
+    .details-info {
+        text-align: center; /* Centers text for a cleaner mobile look */
+    }
+}

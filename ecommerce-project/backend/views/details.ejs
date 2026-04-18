@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product.name %> | Details</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container nav-flex">
+            <div class="logo">Ali's Shop</div>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/products">Products</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container details-wrapper">
+        <div class="image-section">
+            <img src="<%= product.image %>" alt="<%= product.name %>">
+        </div>
+        <div class="info-section">
+            <span class="category-tag"><%= product.category %></span>
+            <h1><%= product.name %></h1>
+            <p class="desc"><%= product.description %></p>
+            
+            <div class="stock-status">
+                <% if (product.stock > 0) { %>
+                    <p class="in-stock">✅ <%= product.stock %> units available</p>
+                <% } else { %>
+                    <p class="out-of-stock">❌ Currently Out of Stock</p>
+                <% } %>
+            </div>
+
+            <p class="price-tag">$<%= product.price %></p>
+            
+            <button class="buy-btn" <%= product.stock <= 0 ? 'disabled' : '' %>>
+                <%= product.stock > 0 ? 'Add to Cart' : 'Sold Out' %>
+            </button>
+            <br><br>
+            <a href="/products" class="back-link">← Back to Shop</a>
+        </div>
+    </main>
+
+    <footer class="footer-section">
+        <div class="container">
+            <p>© 2026 Ali's Tech Store</p>
+        </div>
+    </footer>
+</body>
+</html>

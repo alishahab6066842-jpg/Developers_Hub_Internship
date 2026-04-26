@@ -2,45 +2,64 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config();
 const mongoose = require('mongoose');
-const productRoutes = require('./routes/productRoutes');
-const staticRoutes = require('./routes/staticRoutes'); // Keep if you have non-product pages
-const cookieParser = require('cookie-parser'); 
-const authRoutes = require('./routes/authRoutes'); 
-import serverless from "serverless-http";
+const cookieParser = require('cookie-parser');
+const serverless = require('serverless-http');
 
+// Routes
+const productRoutes = require('./routes/productRoutes');
+const staticRoutes = require('./routes/staticRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
-// 1. SETTINGS
+/* =========================
+   VIEW ENGINE
+========================= */
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// 2. MIDDLEWARES 
-app.use(cookieParser()); 
+/* =========================
+   MIDDLEWARES
+========================= */
+app.use(cookieParser());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-
-// 4. ROUTES
-app.use('/', staticRoutes);   // For About, Contact, etc.
-app.use('/', productRoutes);  // For Home, Products, Search and Details
-app.use('/', authRoutes);       // For login/sign-up
-
-
+/* =========================
+   MONGODB CONNECTION (Vercel SAFE)
+========================= */
 let isConnected = false;
 
 async function connectDB() {
   if (isConnected) return;
 
-  await mongoose.connect(process.env.MONGO_URI);
-  isConnected = true;
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    isConnected = true;
+    console.log("✅ MongoDB connected");
+  } catch (err) {
+    console.error("❌ MongoDB connection error:", err);
+  }
 }
 
+// Ensure DB connects before every request (serverless-safe)
 app.use(async (req, res, next) => {
-  await connectDB(); // 🔥 ensures DB before every request
+  if (!isConnected) {
+    await connectDB();
+  }
   next();
 });
 
+/* =========================
+   ROUTES
+========================= */
+app.use('/', staticRoutes);
+app.use('/', productRoutes);
+app.use('/', authRoutes);
 
-export const handler = serverless(app);
+/* =========================
+   EXPORT FOR VERCEL
+========================= */
+module.exports = app;
+module.exports.handler = serverless(app);

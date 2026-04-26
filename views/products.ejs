@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products | Ali's Store</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-top">
+            <div class="logo-area">
+                <a href="/"><img src="/assets/logo-colored.png" alt="Brand" class="logo-img" /></a>
+            </div>
+
+            <form action="/search" method="GET" class="search-bar">
+                <input type="text" name="q" placeholder="Search products..." required />
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+
+            <nav class="user-actions">
+                <a href="/">Home</a>
+                <a href="/products">Products</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Explore Our Collection</h2>
+        
+        <div class="product-grid">
+            <% if (products.length > 0) { %>
+                <% products.forEach(product => { %>
+
+
+                    <div class="product-card">
+                        <a href="/products/<%= product._id %>">
+                            <img src="<%= product.image %>" alt="<%= product.name %>">
+                        </a>
+                        
+                        <div class="product-info">
+                            <h3><%= product.name %></h3>
+                            <p class="category"><%= product.category %></p>
+                            <p class="price">$<%= product.price %></p>
+                            
+                            <p><strong>Sold by:</strong> <%= product.seller ? product.seller.name : 'Unknown Seller' %></p>
+                            
+                            <div style="margin-top: 15px;">
+                                <a href="/products/<%= product._id %>" class="btn-primary" style="display: block; text-align: center; text-decoration: none;">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                <% }) %>
+                <% } else { %>
+                <div class="no-results">
+                    <p>No products found. Try a different search term.</p>
+                    <a href="/products">View All Products</a>
+                </div>
+            <% } %>
+
+            <div class="pagination-container" style="margin-top: 30px; text-align: center;">
+                
+                <% if (hasPrevPage) { %>
+                    <a href="/products?page=<%= prevPage %>" class="btn"> &laquo; Previous</a>
+                <% } %>
+
+                <span class="page-info">
+                    Page <%= currentPage %> of <%= totalPages %>
+                </span>
+
+                <% if (hasNextPage) { %>
+                    <a href="/products?page=<%= nextPage %>" class="btn">Next &raquo;</a>
+                <% } %>
+
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer-section">
+        <div class="container">
+            <p>© 2026 Ecommerce Project - University of Karachi</p>
+        </div>
+    </footer>
+</body>
+</html>
+
